@@ -1,0 +1,20 @@
+.contenedor {
+  background-color: #FAF4F0;
+  min-height: 80vh;
+  padding: 2rem 0;
+}
+
+.tituloPurpura {
+  color: #6B4E71 !important;
+  font-weight: bold;
+}
+
+.btnRosa {
+  background-color: #D8829D !important;
+  color: white !important;
+  border: none !important;
+}
+
+.btnRosa:hover {
+  background-color: #C4718B !important;
+}
