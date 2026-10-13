@@ -3,7 +3,7 @@ body {
   color: #4A3E3D;
 }
 
-/* Tarjetas con estilo pastel redondeado */
+
 .card {
   background-color: #FFFFFF;
   border-radius: 20px !important;
@@ -11,7 +11,7 @@ body {
   box-shadow: 0 10px 30px rgba(107, 78, 113, 0.08) !important;
 }
 
-/* Campos de entrada con bordes suaves */
+
 .form-control {
   border-radius: 12px;
   border: 1.5px solid #EAE0D9;
@@ -33,7 +33,7 @@ body {
   margin-bottom: 0.4rem;
 }
 
-/* Botones suavizados */
+
 .btn-rosa {
   background-color: #D8829D;
   color: #FFFFFF;
