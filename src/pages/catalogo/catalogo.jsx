@@ -21,7 +21,7 @@ function Catalogo() {
     const [mensajeEspecial, setMensajeEspecial] = useState('');
     const [mostrarModal, setMostrarModal] = useState(false);
 
-    // FILTRADO COMBINADO
+
     const productosFiltrados = inventario.filter((item) => {
         const coincideCategoria = filtroCategoria === 'Todas' || item.categoria === filtroCategoria;
         const coincideTamano = filtroTamano === 'Todos' || item.tamano === filtroTamano;
@@ -45,8 +45,7 @@ function Catalogo() {
             <App_navbar />
             <Container className="py-4">
                 <h2 className="text-center text-chocolate mb-4 fw-bold">Catalogo de Productos ({productosFiltrados.length})</h2>
-                
-                {/* PANEL DE FILTROS */}
+
                 <Card className={`p-4 mb-4 shadow-sm ${estilos.tarjetaFiltros}`}>
                     <Row className="g-3">
                         <Col md={4}>
@@ -89,7 +88,6 @@ function Catalogo() {
                     </Row>
                 </Card>
 
-                {/* GRILLA DE PRODUCTOS */}
                 <Row className="g-4">
                     {productosFiltrados.map((item) => (
                         <Col key={item.id} sm={6} lg={3}>
