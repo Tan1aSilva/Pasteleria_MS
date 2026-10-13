@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import App_navbar from '../../components/navbar/navbar';
 import { getCarritoDB, saveCarritoDB } from '../../data/db';
 import estilos from './carrito.module.css';
@@ -134,7 +134,8 @@ function Carrito() {
                     ${total.toLocaleString('es-CL')}
                   </span>
                 </div>
-                <button onClick={() => navigate('/pedidos')} className={`btn ${estilos.btnRosa} w-100 fw-bold`}>
+               
+                <button onClick={() => navigate('/checkout')} className={`btn ${estilos.btnRosa} w-100 fw-bold`}>
                   Proceder al Pago
                 </button>
               </div>

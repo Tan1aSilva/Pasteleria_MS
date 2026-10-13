@@ -1,0 +1,46 @@
+.navbar-pastel {
+  background-color: #D8829D !important;
+}
+
+
+.navbar-pastel .navbar-brand {
+  color: #FFFFFF !important;
+  font-weight: bold;
+}
+
+.navbar-pastel .nav-link {
+  color: #FFFFFF !important;
+  font-weight: 500;
+}
+
+.navbar-pastel .nav-link:hover {
+  color: #FAF4F0 !important;
+}
+
+
+.btn-navbar-cafe {
+  background-color: #FFFFFF !important;
+  color: #4A3E3D !important;
+  border: none !important;
+  border-radius: 6px;
+  padding: 0.35rem 0.85rem;
+}
+
+.btn-navbar-cafe:hover {
+  background-color: #FAF4F0 !important;
+  color: #4A3E3D !important;
+}
+
+
+.btn-navbar-rosa {
+  background-color: #C4718B !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  border-radius: 6px;
+  padding: 0.35rem 0.85rem;
+}
+
+.btn-navbar-rosa:hover {
+  background-color: #B35F79 !important;
+  color: #FFFFFF !important;
+}

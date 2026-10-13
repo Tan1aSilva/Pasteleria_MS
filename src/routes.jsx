@@ -13,7 +13,7 @@ export const routes = createBrowserRouter([
     element: <Carrito />,
   },
   {
-    path: "/pedidos",
+    path: "/checkout",
     element: <Checkout />,
   },
 ]);
