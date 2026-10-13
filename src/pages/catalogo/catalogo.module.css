@@ -1,80 +1,75 @@
+.contenedor {
+    background-color: #FAF4F0;
+    min-height: 80vh;
+    padding: 2rem 0;
+}
+
+.tituloPurpura {
+    color: #6B4E71;
+    font-weight: bold;
+}
+
 .tarjetaFiltros {
-    background-color: #FFF5E1 !important;
-    border: 2px solid #FFC0CB !important;
-    border-radius: 12px;
+    background-color: #FFFFFF;
+    border-radius: 16px;
+    border: 1px solid #F0E6DF;
+    box-shadow: 0 10px 30px rgba(107, 78, 113, 0.08);
 }
 
 .selectRosa {
-    border: 2px solid #FFC0CB !important;
-    color: #5D4037 !important;
-    font-weight: 600;
-    background-color: #ffffff !important;
+    border-radius: 12px;
+    border: 1.5px solid #EAE0D9;
+    background-color: #FAFAFA;
+    transition: all 0.2s ease;
 }
 
 .selectRosa:focus {
-    border-color: #8B4513 !important;
-    box-shadow: 0 0 0 0.25rem rgba(139, 69, 19, 0.2) !important;
+    background-color: #FFFFFF;
+    border-color: #D8829D;
+    box-shadow: 0 0 0 0.25rem rgba(216, 130, 157, 0.2);
 }
 
 .cardProducto {
-    border: 2px solid #FFC0CB !important;
-    border-radius: 12px;
-    overflow: hidden;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    border: 1px solid #F0E6DF;
+    box-shadow: 0 10px 30px rgba(107, 78, 113, 0.08);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    display: flex;
-    flex-direction: column;
     height: 100%;
 }
 
 .cardProducto:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(139, 69, 19, 0.15) !important;
+    box-shadow: 0 14px 35px rgba(107, 78, 113, 0.12);
 }
 
 .contenedorImagen {
     width: 100%;
-    height: 180px !important;
-    max-height: 180px !important;
+    height: 180px;
     overflow: hidden;
-    background-color: #ffffff;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 .imagenCard {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    object-position: center !important;
-    display: block !important;
-}
-
-/* ESTILOS DEL MODAL Y BOTONES */
-.imagenModal {
-    max-height: 220px;
     width: 100%;
+    height: 100%;
     object-fit: cover;
-    border-radius: 8px;
 }
 
 .btnRosa {
-    background-color: #FFC0CB !important;
-    border: 2px solid #FFC0CB !important;
-    color: #5D4037 !important;
-    font-weight: bold;
+    background-color: #D8829D;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 12px;
+    padding: 0.7rem 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
 }
 
 .btnRosa:hover {
-    background-color: #e6acb6 !important;
-}
-
-.modalHeader {
-    background-color: #FFC0CB;
-}
-.imagenModal {
-    width: 100%;
-    max-height: 320px !important;
-    object-fit: contain !important;
-    background-color: #FFF5E1;
-    border: 2px solid #FFC0CB;
-    border-radius: 12px;
-    padding: 8px;
+    background-color: #C4718B;
+    color: #FFFFFF;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(216, 130, 157, 0.3);
 }
