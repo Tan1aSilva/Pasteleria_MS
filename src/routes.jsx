@@ -4,6 +4,11 @@ import Catalogo from './pages/catalogo/catalogo';
 import App_navbar from './components/navbar/navbar';
 import Container from 'react-bootstrap/Container';
 
+// Importamos las pantallas de usuario
+import Login from './pages/usuario/login';
+import Registro from './pages/usuario/registro';
+import Perfil from './pages/usuario/perfil';
+
 function PaginaEnConstruccion({ titulo }) {
     return (
         <>
@@ -52,5 +57,18 @@ export const router = createBrowserRouter([
     {
         path: '/pedidos',
         element: <PaginaEnConstruccion titulo="Historial de Pedidos" />
+    },
+    // Nuevas rutas agregadas para que funcionen los botones
+    {
+        path: '/login',
+        element: <Login />
+    },
+    {
+        path: '/registro',
+        element: <Registro />
+    },
+    {
+        path: '/perfil',
+        element: <Perfil />
     }
 ]);

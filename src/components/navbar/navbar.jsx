@@ -32,7 +32,7 @@ function App_navbar() {
 
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link as={Link} to="/productos">
+              <Nav.Link as={Link} to="/catalogo">
                 Catálogo
               </Nav.Link>
               <Nav.Link as={Link} to="/carrito">
