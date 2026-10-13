@@ -5,3 +5,39 @@
     border-radius: 6px;
     margin-bottom: 10px;
 }
+.tituloPrincipal {
+    color: #8B4513;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+.tituloSeccion {
+    color: #8B4513;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.btnRosa {
+    background-color: #FFC0CB !important;
+    border: 2px solid #FFC0CB !important;
+    color: #5D4037 !important;
+    font-weight: bold;
+}
+
+.btnRosa:hover {
+    background-color: #e6acb6 !important;
+}
+
+.btnActivo {
+    background-color: #8B4513 !important;
+    color: #ffffff !important;
+    border: none;
+    font-weight: bold;
+}
+
+.btnInactivo {
+    background-color: #FFC0CB !important;
+    color: #5D4037 !important;
+    border: none;
+    font-weight: bold;
+}
