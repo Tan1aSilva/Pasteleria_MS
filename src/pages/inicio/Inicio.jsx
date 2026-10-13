@@ -124,7 +124,7 @@ function Inicio() {
                                             </div>
                                             <Card.Text className="text-secondary small">{prod.desc}</Card.Text>
                                             <div className="d-flex justify-content-between align-items-center mt-3">
-                                                <span className="fw-bold text-chocolate fs-5">\${prod.precio.toLocaleString('es-CL')} CLP</span>
+                                                <span className="fw-bold text-chocolate fs-5">${prod.precio.toLocaleString('es-CL')} CLP</span>
                                                 <Button className={estilos.btnRosa} size="sm" onClick={() => navigate('/catalogo')}>
                                                     Pedir Ahora
                                                 </Button>
