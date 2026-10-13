@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import './navbar.css';
+import styles from './navbar.module.css';
 
 function App_navbar() {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ function App_navbar() {
 
   return (
     <header>
-      <Navbar expand="lg" className="navbar-pastel navbar-dark shadow-sm">
+      <Navbar expand="lg" className={`${styles['navbar-pastel']} navbar-dark shadow-sm`}>
         <Container>
           <Navbar.Brand as={Link} to="/" className="fw-bold text-white fs-4">
             Mil Sabores
@@ -49,23 +49,23 @@ function App_navbar() {
             <div className="d-flex gap-2 align-items-center mt-2 mt-lg-0">
               {usuarioActivo ? (
                 <>
-                  <Link to="/perfil" className="btn btn-navbar-cafe btn-sm fw-bold">
+                  <Link to="/perfil" className={`btn ${styles['btn-navbar-cafe']} btn-sm fw-bold`}>
                     Mi Perfil ({usuarioActivo.nombre?.split(' ')[0] || 'Usuario'})
                   </Link>
                   <button
                     type="button"
                     onClick={handleCerrarSesion}
-                    className="btn btn-navbar-rosa btn-sm fw-bold"
+                    className={`btn ${styles['btn-navbar-rosa']} btn-sm fw-bold`}
                   >
                     Cerrar Sesión
                   </button>
                 </>
               ) : (
                 <>
-                  <Link to="/login" className="btn btn-navbar-cafe btn-sm fw-bold">
+                  <Link to="/login" className={`btn ${styles['btn-navbar-cafe']} btn-sm fw-bold`}>
                     Iniciar Sesión
                   </Link>
-                  <Link to="/registro" className="btn btn-navbar-rosa btn-sm fw-bold">
+                  <Link to="/registro" className={`btn ${styles['btn-navbar-rosa']} btn-sm fw-bold`}>
                     Registrarse
                   </Link>
                 </>

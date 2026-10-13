@@ -31,13 +31,13 @@ function Inicio() {
         <>
             <App_navbar />
             <Container className="py-4">
-                <section className="mb-5 text-center p-4 rounded shadow-sm" style={{ backgroundColor: '#FFF5E1', border: '2px solid #FFC0CB' }}>
-                    <h1 className={estilos.tituloPrincipal}>Pasteleria Mil Sabores</h1>
+                <section className={`mb-5 text-center p-4 rounded shadow-sm ${estilos.seccionHero}`}>
+                    <h1 className={estilos.tituloPrincipal}>Pastelería Mil Sabores</h1>
                     <p className="fs-5 text-secondary mb-3">
-                        Celebrando 50 anos de tradicion repostera con las mejores recetas artesanales de Chile.
+                        Celebrando 50 años de tradición repostera con las mejores recetas artesanales de Chile.
                     </p>
                     <Button className={estilos.btnRosa} onClick={() => navigate('/catalogo')}>
-                        Ver Catalogo Completo
+                        Ver Catálogo Completo
                     </Button>
                 </section>
 
@@ -53,9 +53,9 @@ function Inicio() {
                             </p>
                         </Col>
                         <Col md={4} className="text-center">
-                            <div className="p-3 rounded" style={{ backgroundColor: '#FFC0CB', color: '#8B4513' }}>
-                                <h3 className="fw-bold mb-1">50 Anos</h3>
-                                <p className="mb-0 fw-bold">De Tradicion y Calidad</p>
+                            <div className={`p-3 rounded ${estilos.cajaTradicion}`}>
+                                <h3 className="fw-bold mb-1">50 Años</h3>
+                                <p className="mb-0 fw-bold">De Tradición y Calidad</p>
                             </div>
                         </Col>
                     </Row>
@@ -66,29 +66,29 @@ function Inicio() {
                     <p className="text-secondary mb-3">
                         Selecciona tus preferencias o ingredientes favoritos para descubrir sugerencias adaptadas a tus gustos:
                     </p>
-                    
+
                     <Form.Group className="mb-4">
                         <Form.Label className="fw-bold text-chocolate">Elige tu preferencia:</Form.Label>
                         <div className="d-flex flex-wrap gap-2">
-                            <Button 
+                            <Button
                                 className={preferencia === 'Chocolate' ? estilos.btnActivo : estilos.btnInactivo}
                                 onClick={() => setPreferencia('Chocolate')}
                             >
                                 Chocolate Intenso
                             </Button>
-                            <Button 
+                            <Button
                                 className={preferencia === 'Manjar' ? estilos.btnActivo : estilos.btnInactivo}
                                 onClick={() => setPreferencia('Manjar')}
                             >
                                 Manjar y Tradicional
                             </Button>
-                            <Button 
+                            <Button
                                 className={preferencia === 'Frutas' ? estilos.btnActivo : estilos.btnInactivo}
                                 onClick={() => setPreferencia('Frutas')}
                             >
                                 Frutas y Frescura
                             </Button>
-                            <Button 
+                            <Button
                                 className={preferencia === 'Saludable' ? estilos.btnActivo : estilos.btnInactivo}
                                 onClick={() => setPreferencia('Saludable')}
                             >
