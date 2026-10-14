@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import App_navbar from '../../components/navbar/navbar';
-import './usuario.css';
+import Footer from '../../components/footer/footer';
+import { buscarUsuarioDB, setUsuarioActivoDB, getUltimoCorreoDB } from '../../data/db';
 
 function Login() {
   const navigate = useNavigate();
-  const [correo, setCorreo] = useState('');
+  const [correo, setCorreo] = useState(getUltimoCorreoDB());
   const [clave, setClave] = useState('');
   const [error, setError] = useState('');
 
@@ -17,13 +18,10 @@ function Login() {
       return;
     }
 
-    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-    const usuarioValido = usuarios.find(
-      (u) => u.correo.toLowerCase() === correo.toLowerCase() && u.clave === clave
-    );
+    const usuarioValido = buscarUsuarioDB(correo, clave);
 
     if (usuarioValido) {
-      localStorage.setItem('usuarioActivo', JSON.stringify(usuarioValido));
+      setUsuarioActivoDB(usuarioValido);
       navigate('/perfil');
     } else {
       setError('Correo electrónico o contraseña incorrectos');
@@ -33,7 +31,7 @@ function Login() {
   return (
     <>
       <App_navbar />
-      <main className="container my-5">
+      <main className="container my-5 flex-grow-1">
         <div className="row justify-content-center">
           <div className="col-12 col-md-6 col-lg-5">
             <div className="card shadow-sm border-0 p-4">
@@ -84,6 +82,7 @@ function Login() {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 }
