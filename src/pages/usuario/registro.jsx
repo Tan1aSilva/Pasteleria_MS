@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import App_navbar from '../../components/navbar/navbar';
-import './usuario.css';
+import Footer from '../../components/footer/footer';
+import { existeCorreoDB, registrarUsuarioDB, setUsuarioActivoDB } from '../../data/db';
+import { calcularEdad, esCorreoDuoc } from '../../utils/descuentos';
 
 function Registro() {
   const navigate = useNavigate();
   const [nombre, setNombre] = useState('');
   const [correo, setCorreo] = useState('');
+  const [fechaNacimiento, setFechaNacimiento] = useState('');
   const [telefono, setTelefono] = useState('');
+  const [codigo, setCodigo] = useState('');
   const [clave, setClave] = useState('');
   const [confirmarClave, setConfirmarClave] = useState('');
   const [error, setError] = useState('');
@@ -15,7 +19,7 @@ function Registro() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!nombre || !correo || !clave || !confirmarClave) {
+    if (!nombre || !correo || !fechaNacimiento || !clave || !confirmarClave) {
       setError('Por favor llena todos los campos requeridos');
       return;
     }
@@ -30,35 +34,40 @@ function Registro() {
       return;
     }
 
-    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-    const existe = usuarios.some(
-      (u) => u.correo.toLowerCase() === correo.toLowerCase()
-    );
+    if (calcularEdad(fechaNacimiento) < 0 || calcularEdad(fechaNacimiento) > 120) {
+      setError('La fecha de nacimiento no es válida');
+      return;
+    }
 
-    if (existe) {
+    if (codigo && codigo.toUpperCase() !== 'FELICES50') {
+      setError('El código promocional no es válido');
+      return;
+    }
+
+    if (existeCorreoDB(correo)) {
       setError('El correo electrónico ya se encuentra registrado');
       return;
     }
 
-    const nuevoUsuario = {
-      id: Date.now(),
+    const nuevoUsuario = registrarUsuarioDB({
       nombre,
       correo,
-      telefono,
       clave,
-    };
+      fechaNacimiento,
+      telefono,
+      direccion: '',
+      codigo: codigo.toUpperCase(),
+      preferencia: '',
+    });
 
-    usuarios.push(nuevoUsuario);
-    localStorage.setItem('usuarios', JSON.stringify(usuarios));
-    localStorage.setItem('usuarioActivo', JSON.stringify(nuevoUsuario));
-
+    setUsuarioActivoDB(nuevoUsuario);
     navigate('/perfil');
   };
 
   return (
     <>
       <App_navbar />
-      <main className="container my-5">
+      <main className="container my-5 flex-grow-1">
         <div className="row justify-content-center">
           <div className="col-12 col-md-6 col-lg-5">
             <div className="card shadow-sm border-0 p-4">
@@ -98,6 +107,22 @@ function Registro() {
                   />
                 </div>
                 <div className="mb-3">
+                  <label htmlFor="regNacimiento" className="form-label">Fecha de Nacimiento</label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    id="regNacimiento"
+                    value={fechaNacimiento}
+                    onChange={(e) => {
+                      setFechaNacimiento(e.target.value);
+                      setError('');
+                    }}
+                  />
+                  {fechaNacimiento && calcularEdad(fechaNacimiento) >= 50 && (
+                    <small className="text-success">¡Tienes 50% de descuento en todos los productos!</small>
+                  )}
+                </div>
+                <div className="mb-3">
                   <label htmlFor="regTelefono" className="form-label">Teléfono</label>
                   <input
                     type="tel"
@@ -134,6 +159,25 @@ function Registro() {
                     }}
                   />
                 </div>
+                <div className="mb-3">
+                  <label htmlFor="regCodigo" className="form-label">Código Promocional (opcional)</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="regCodigo"
+                    placeholder="FELICES50"
+                    value={codigo}
+                    onChange={(e) => {
+                      setCodigo(e.target.value);
+                      setError('');
+                    }}
+                  />
+                </div>
+                {esCorreoDuoc(correo) && (
+                  <div className="alert alert-success py-2">
+                    Con tu correo Duoc tendrás una torta gratis el día de tu cumpleaños.
+                  </div>
+                )}
                 <button type="submit" className="btn btn-rosa w-100 fw-bold">
                   Crear Cuenta
                 </button>
@@ -146,6 +190,7 @@ function Registro() {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 }
