@@ -3,59 +3,37 @@ import { describe, it, expect } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
 import Catalogo from './catalogo';
 
+const renderCatalogo = () => {
+    render(
+        <MemoryRouter>
+            <Catalogo />
+        </MemoryRouter>
+    );
+};
+
 describe('Pruebas unitarias para la pagina de Catalogo en Pasteleria_MS', () => {
-    it('Renderiza los 16 productos inicialmente', () => {
-        render(
-            <MemoryRouter>
-                <Catalogo />
-            </MemoryRouter>
-        );
-        const titulo = screen.getByText(/Catalogo de Productos \(16\)/i);
-        expect(titulo).toBeDefined();
+    it('Filtra los productos por forma Cuadrada', () => {
+        renderCatalogo();
+        const selectForma = screen.getByLabelText('Forma de Torta:');
+        fireEvent.change(selectForma, { target: { value: 'Cuadrada' } });
+
+        expect(screen.getByText('Torta Cuadrada de Chocolate')).toBeInTheDocument();
+        expect(screen.queryByText('Torta Circular de Vainilla')).toBeNull();
     });
 
-    it('Filtra los productos por forma al hacer clic en Cuadradas', () => {
-        render(
-            <MemoryRouter>
-                <Catalogo />
-            </MemoryRouter>
-        );
-        const botonCuadradas = screen.getByText('Cuadradas');
-        fireEvent.click(botonCuadradas);
+    it('Guardar y Agregar guarda la torta con su mensaje en el carrito', () => {
+        renderCatalogo();
+        fireEvent.click(screen.getAllByText('Personalizar')[0]);
 
-        const productoCuadrado = screen.getByText('Torta Cuadrada de Chocolate');
-        const productoCircular = screen.queryByText('Torta Circular de Vainilla');
+        fireEvent.change(screen.getByLabelText(/mensaje especial/i), { target: { value: 'Feliz Aniversario' } });
+        fireEvent.change(screen.getByLabelText('Cantidad:'), { target: { value: '2' } });
+        fireEvent.click(screen.getByText('Guardar y Agregar'));
 
-        expect(productoCuadrado).toBeDefined();
-        expect(productoCircular).toBeNull();
-    });
-
-    it('Filtra los productos por tamano Individual', () => {
-        render(
-            <MemoryRouter>
-                <Catalogo />
-            </MemoryRouter>
-        );
-        const selectTamano = screen.getByRole('combobox', { name: /Filtrar por Tamano/i });
-        fireEvent.change(selectTamano, { target: { value: 'Individual' } });
-
-        const mousse = screen.getByText('Mousse de Chocolate');
-        const tortaFamiliar = screen.queryByText('Torta Cuadrada de Chocolate');
-
-        expect(mousse).toBeDefined();
-        expect(tortaFamiliar).toBeNull();
-    });
-
-    it('Abre el modal de personalizacion al presionar el boton', () => {
-        render(
-            <MemoryRouter>
-                <Catalogo />
-            </MemoryRouter>
-        );
-        const botonesPersonalizar = screen.getAllByText('Personalizar');
-        fireEvent.click(botonesPersonalizar[0]);
-
-        const tituloModal = screen.getByText('Personalizar Pedido');
-        expect(tituloModal).toBeDefined();
+        const carrito = JSON.parse(localStorage.getItem('milsabores_carrito'));
+        expect(carrito.length).toBe(1);
+        expect(carrito[0].nombre).toBe('Torta Cuadrada de Chocolate');
+        expect(carrito[0].cantidad).toBe(2);
+        expect(carrito[0].mensaje).toBe('Feliz Aniversario');
+        expect(screen.getByText(/agregado al carrito/)).toBeInTheDocument();
     });
 });
