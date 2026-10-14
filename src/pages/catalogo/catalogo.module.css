@@ -73,3 +73,13 @@
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(216, 130, 157, 0.3);
 }
+
+.imagenModal {
+    max-height: 260px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.modalHeader {
+    background-color: #FAF4F0;
+}

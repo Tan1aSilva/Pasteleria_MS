@@ -1,0 +1,22 @@
+.cardProducto {
+    height: 100%;
+    transition: transform 0.2s ease;
+}
+
+.cardProducto:hover {
+    transform: translateY(-4px);
+}
+
+.contenedorImagen {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.imagenCard {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
