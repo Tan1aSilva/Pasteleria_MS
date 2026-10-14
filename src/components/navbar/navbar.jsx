@@ -1,22 +1,18 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Badge from 'react-bootstrap/Badge';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { getUsuarioActivoDB, getCarritoDB, cerrarSesionDB } from '../../data/db';
 import styles from './navbar.module.css';
 
 function App_navbar() {
   const navigate = useNavigate();
-  const [usuarioActivo, setUsuarioActivo] = useState(null);
-
-  useEffect(() => {
-    const sesion = JSON.parse(localStorage.getItem('usuarioActivo'));
-    setUsuarioActivo(sesion);
-  }, []);
+  const usuarioActivo = getUsuarioActivoDB();
+  const cantidadCarrito = getCarritoDB().reduce((acc, item) => acc + item.cantidad, 0);
 
   const handleCerrarSesion = () => {
-    localStorage.removeItem('usuarioActivo');
-    setUsuarioActivo(null);
+    cerrarSesionDB();
     navigate('/login');
   };
 
@@ -36,13 +32,21 @@ function App_navbar() {
                 Catálogo
               </Nav.Link>
               <Nav.Link as={Link} to="/carrito">
-                Carrito
+                Carrito <Badge bg="light" text="dark" pill data-testid="cantidad-carrito">{cantidadCarrito}</Badge>
               </Nav.Link>
               <Nav.Link as={Link} to="/envios">
                 Envíos
               </Nav.Link>
-              <Nav.Link as={Link} to="/pedidos">
-                Mis Pedidos
+              {usuarioActivo && (
+                <Nav.Link as={Link} to="/pedidos">
+                  Mis Pedidos
+                </Nav.Link>
+              )}
+              <Nav.Link as={Link} to="/blogs">
+                Blog
+              </Nav.Link>
+              <Nav.Link as={Link} to="/nosotros">
+                Nosotros
               </Nav.Link>
             </Nav>
 
@@ -50,7 +54,7 @@ function App_navbar() {
               {usuarioActivo ? (
                 <>
                   <Link to="/perfil" className={`btn ${styles['btn-navbar-cafe']} btn-sm fw-bold`}>
-                    Mi Perfil ({usuarioActivo.nombre?.split(' ')[0] || 'Usuario'})
+                    Mi Perfil ({usuarioActivo.nombre.split(' ')[0]})
                   </Link>
                   <button
                     type="button"
