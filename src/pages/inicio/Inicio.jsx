@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import App_navbar from '../../components/navbar/navbar';
+import Footer from '../../components/footer/footer';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -8,11 +9,23 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Badge from 'react-bootstrap/Badge';
 import { useNavigate } from 'react-router-dom';
+import { getUsuarioActivoDB, getPedidosUsuarioDB } from '../../data/db';
 import estilos from './inicio.module.css';
 
 function Inicio() {
     const navigate = useNavigate();
-    const [preferencia, setPreferencia] = useState('Chocolate');
+    const usuario = getUsuarioActivoDB();
+    const [preferencia, setPreferencia] = useState(usuario && usuario.preferencia ? usuario.preferencia : 'Chocolate');
+
+    const pedidos = usuario ? getPedidosUsuarioDB(usuario.id) : [];
+    const productosComprados = [];
+    pedidos.forEach((pedido) => {
+        pedido.items.forEach((item) => {
+            if (!productosComprados.includes(item.nombre)) {
+                productosComprados.push(item.nombre);
+            }
+        });
+    });
 
     const listaRecomendaciones = [
         { id: 1, tipo: 'Chocolate', nombre: 'Torta Cuadrada de Chocolate', precio: 45000, desc: 'Capas de ganache intenso y bizcocho húmedo para amantes del cacao.' },
@@ -31,7 +44,7 @@ function Inicio() {
         <>
             <App_navbar />
 
-            <main>
+            <main className="flex-grow-1">
                 <section id="banner" className="container my-4">
                     <div className="row">
                         <div className="col-12">
@@ -84,7 +97,7 @@ function Inicio() {
                         </p>
 
                         <Form.Group className="mb-4">
-                            <Form.Label className="fw-bold text-chocolate">Elige tu preferencia:</Form.Label>
+                            <Form.Label className="fw-bold text-purpura">Elige tu preferencia:</Form.Label>
                             <div className="d-flex flex-wrap gap-2">
                                 <Button
                                     className={preferencia === 'Chocolate' ? estilos.btnActivo : estilos.btnInactivo}
@@ -113,18 +126,29 @@ function Inicio() {
                             </div>
                         </Form.Group>
 
+                        {productosComprados.length > 0 && (
+                            <div className="caja-rosa p-3 mb-4">
+                                <h6 className="fw-bold mb-2">Volver a pedir (según tus compras anteriores):</h6>
+                                <div className="d-flex flex-wrap gap-2">
+                                    {productosComprados.map((nombre) => (
+                                        <Badge key={nombre} className="badge-rosa">{nombre}</Badge>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
                         <Row className="g-3">
                             {sugerenciasFiltradas.map((prod) => (
                                 <Col key={prod.id} md={6}>
-                                    <Card className="h-100 border-rosa shadow-sm">
+                                    <Card className="h-100 shadow-sm">
                                         <Card.Body>
                                             <div className="d-flex justify-content-between align-items-center mb-2">
-                                                <Card.Title className="text-chocolate fw-bold mb-0">{prod.nombre}</Card.Title>
+                                                <Card.Title className="text-purpura fw-bold mb-0">{prod.nombre}</Card.Title>
                                                 <Badge bg="success">Recomendado</Badge>
                                             </div>
                                             <Card.Text className="text-secondary small">{prod.desc}</Card.Text>
                                             <div className="d-flex justify-content-between align-items-center mt-3">
-                                                <span className="fw-bold text-chocolate fs-5">${prod.precio.toLocaleString('es-CL')} CLP</span>
+                                                <span className="fw-bold text-purpura fs-5">${prod.precio.toLocaleString('es-CL')} CLP</span>
                                                 <Button className={estilos.btnRosa} size="sm" onClick={() => navigate('/catalogo')}>
                                                     Pedir Ahora
                                                 </Button>
@@ -133,6 +157,33 @@ function Inicio() {
                                     </Card>
                                 </Col>
                             ))}
+                        </Row>
+                    </section>
+
+                    <section className="mb-5 p-4 bg-white rounded shadow-sm border">
+                        <h2 className={estilos.tituloSeccion}>Sección de Impacto Comunitario</h2>
+                        <p className="text-secondary mb-4">
+                            Cada compra en Mil Sabores ayuda a formar nuevos talentos en gastronomía y apoya a la comunidad local.
+                        </p>
+                        <Row className="g-3">
+                            <Col md={4}>
+                                <div className="caja-rosa h-100 p-3">
+                                    <h5 className="fw-bold">Apoyo Estudiantil</h5>
+                                    <p className="mb-0">Parte de cada venta financia prácticas para estudiantes de Gastronomía de Duoc UC.</p>
+                                </div>
+                            </Col>
+                            <Col md={4}>
+                                <div className="caja-rosa h-100 p-3">
+                                    <h5 className="fw-bold">Recetas de la Comunidad</h5>
+                                    <p className="mb-0">Los estudiantes comparten recetas y consejos en nuestro blog.</p>
+                                </div>
+                            </Col>
+                            <Col md={4}>
+                                <div className="caja-rosa h-100 p-3">
+                                    <h5 className="fw-bold">Productores Locales</h5>
+                                    <p className="mb-0">Compramos frutas, lácteos y huevos a productores de la zona central.</p>
+                                </div>
+                            </Col>
                         </Row>
                     </section>
 
@@ -151,12 +202,11 @@ function Inicio() {
                                                 Duoc UC Sede Valparaíso y Viña Casas del Bosque firman un importante convenio para impulsar el desarrollo gastronómico y enoturístico del Valle de Casablanca.
                                             </Card.Text>
                                             <Button 
-                                                variant="outline-primary" 
+                                                className="btn-borde-rosa mt-3" 
                                                 size="sm" 
                                                 href="https://www.duoc.cl/?noticia_post_type=duoc-uc-sede-valparaiso-y-vina-casas-del-bosque-firman-convenio-para-potenciar-el-enoturismo-del-valle-de-casablanca" 
                                                 target="_blank" 
                                                 rel="noreferrer"
-                                                className="mt-3"
                                             >
                                                 Leer más
                                             </Button>
@@ -173,12 +223,11 @@ function Inicio() {
                                                 Una propuesta gastronómica creada por estudiantes de Duoc UC formará parte del programa piloto "Juna Chef" para enriquecer la alimentación escolar.
                                             </Card.Text>
                                             <Button 
-                                                variant="outline-primary" 
+                                                className="btn-borde-rosa mt-3" 
                                                 size="sm" 
                                                 href="https://www.duoc.cl/?noticia_post_type=juna-chef-receta-de-estudiantes-duoc-uc-sera-parte-del-plan-piloto-de-junaeb-para-alimentacion-escolar" 
                                                 target="_blank" 
                                                 rel="noreferrer"
-                                                className="mt-3"
                                             >
                                                 Leer más
                                             </Button>
@@ -195,12 +244,11 @@ function Inicio() {
                                                 Destacado chef nacional se reunió con estudiantes y docentes en una jornada de ChefTalks orientada a promover y revalorizar la identidad de la cocina territorial.
                                             </Card.Text>
                                             <Button 
-                                                variant="outline-primary" 
+                                                className="btn-borde-rosa mt-3" 
                                                 size="sm" 
                                                 href="https://www.duoc.cl/?noticia_post_type=cheftalks-reunio-a-destacado-chef-nacional-con-estudiantes-y-docentes-para-promover-el-desarrollo-de-la-cocina-territorial" 
                                                 target="_blank" 
                                                 rel="noreferrer"
-                                                className="mt-3"
                                             >
                                                 Leer más
                                             </Button>
@@ -214,17 +262,7 @@ function Inicio() {
                 </Container>
             </main>
 
-            <footer className="custom-footer text-white py-4 mt-auto bg-dark">
-                <div className="container text-center">
-                    <div className="mb-3">
-                        <a href="https://instagram.com" target="_blank" rel="noreferrer" className="text-white me-3 fs-5"><i className="fab fa-instagram"></i></a>
-                        <a href="https://facebook.com" target="_blank" rel="noreferrer" className="text-white me-3 fs-5"><i className="fab fa-facebook"></i></a>
-                        <a href="https://tiktok.com" target="_blank" rel="noreferrer" className="text-white fs-5"><i className="fab fa-tiktok"></i></a>
-                    </div>
-                    <p className="mb-1">2026 Pastelería Mil Sabores. Todos los derechos reservados.</p>
-                    <small className="text-white-50">Desarrollo Twice - Duoc UC</small>
-                </div>
-            </footer>
+            <Footer />
         </>
     );
 }

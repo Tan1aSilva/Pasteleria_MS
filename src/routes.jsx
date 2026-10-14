@@ -7,6 +7,10 @@ import Login from "./pages/usuario/login";
 import Perfil from "./pages/usuario/perfil";
 import Registro from "./pages/usuario/registro";
 import Envios from "./pages/envios/envios";
+import Pedidos from "./pages/pedidos/pedidos";
+import Blogs from "./pages/blogs/blogs";
+import BlogDetalle from "./pages/blogs/blog_detalle";
+import Nosotros from "./pages/Nosotros/nosotros";
 
 export const routes = createBrowserRouter([
   {
@@ -40,6 +44,22 @@ export const routes = createBrowserRouter([
   {
     path: "/envios",
     element: <Envios />
+  },
+  {
+    path: "/pedidos",
+    element: <Pedidos />
+  },
+  {
+    path: "/blogs",
+    element: <Blogs />
+  },
+  {
+    path: "/blogs/:id",
+    element: <BlogDetalle />
+  },
+  {
+    path: "/nosotros",
+    element: <Nosotros />
   }
 
 ]);

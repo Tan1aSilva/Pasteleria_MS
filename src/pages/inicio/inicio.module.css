@@ -5,39 +5,52 @@
     border-radius: 6px;
     margin-bottom: 10px;
 }
+.seccionHero {
+    background-color: #FFFFFF;
+}
+
 .tituloPrincipal {
-    color: #8B4513;
+    color: #6B4E71;
     font-weight: bold;
     font-size: 2.5rem;
 }
 
 .tituloSeccion {
-    color: #8B4513;
+    color: #6B4E71;
     font-weight: bold;
     margin-bottom: 1rem;
 }
 
+.cajaTradicion {
+    background-color: #6B4E71;
+    color: #FFFFFF;
+}
+
+.cajaTradicion h3 {
+    color: #FFFFFF;
+}
+
 .btnRosa {
-    background-color: #FFC0CB !important;
-    border: 2px solid #FFC0CB !important;
-    color: #5D4037 !important;
+    background-color: #D8829D !important;
+    border: none !important;
+    color: #FFFFFF !important;
     font-weight: bold;
 }
 
 .btnRosa:hover {
-    background-color: #e6acb6 !important;
+    background-color: #C4718B !important;
 }
 
 .btnActivo {
-    background-color: #8B4513 !important;
+    background-color: #6B4E71 !important;
     color: #ffffff !important;
     border: none;
     font-weight: bold;
 }
 
 .btnInactivo {
-    background-color: #FFC0CB !important;
-    color: #5D4037 !important;
+    background-color: #FBE9EF !important;
+    color: #6B4E71 !important;
     border: none;
     font-weight: bold;
 }
