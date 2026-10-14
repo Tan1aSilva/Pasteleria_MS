@@ -1,15 +1,16 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Carrito from './pages/carrito/carrito' 
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<h1>Página Principal - Pastelería MS</h1>} />
-        <Route path="/carrito" element={<Carrito />} />
-      </Routes>
-    </BrowserRouter>
-  )
-}
+import { RouterProvider } from 'react-router-dom';
+import { routes } from './routes.jsx';
+import { initDB } from './data/db';
 
-export default App
+initDB();
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <RouterProvider router={routes} />
+  </StrictMode>
+);
