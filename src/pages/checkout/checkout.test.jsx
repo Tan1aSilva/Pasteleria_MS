@@ -1,39 +1,42 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
-import Catalogo from './catalogo';
+import Checkout from './checkout';
 
-const renderCatalogo = () => {
+const usuario = { id: 3, nombre: 'Camila Rojas', correo: 'camila@gmail.com', fechaNacimiento: '1995-08-20', direccion: '', codigo: 'FELICES50' };
+const torta = { idLinea: 'TC001-', id: 'TC001', nombre: 'Torta Cuadrada de Chocolate', precio: 45000, cantidad: 1, mensaje: '' };
+
+const renderCheckout = () => {
     render(
         <MemoryRouter>
-            <Catalogo />
+            <Checkout />
         </MemoryRouter>
     );
 };
 
-describe('Pruebas unitarias para la pagina de Catalogo en Pasteleria_MS', () => {
-    it('Filtra los productos por forma Cuadrada', () => {
-        renderCatalogo();
-        const selectForma = screen.getByLabelText('Forma de Torta:');
-        fireEvent.change(selectForma, { target: { value: 'Cuadrada' } });
+function fechaManana() {
+    const fecha = new Date();
+    fecha.setDate(fecha.getDate() + 2);
+    return fecha.getFullYear() + '-' + String(fecha.getMonth() + 1).padStart(2, '0') + '-' + String(fecha.getDate()).padStart(2, '0');
+}
 
-        expect(screen.getByText('Torta Cuadrada de Chocolate')).toBeInTheDocument();
-        expect(screen.queryByText('Torta Circular de Vainilla')).toBeNull();
-    });
+describe('Pruebas unitarias para la pagina de Checkout en Pasteleria_MS', () => {
+    it('Crea el pedido con el descuento FELICES50 y vacia el carrito', () => {
+        localStorage.setItem('milsabores_usuario_activo', JSON.stringify(usuario));
+        localStorage.setItem('milsabores_carrito', JSON.stringify([torta]));
+        renderCheckout();
 
-    it('Guardar y Agregar guarda la torta con su mensaje en el carrito', () => {
-        renderCatalogo();
-        fireEvent.click(screen.getAllByText('Personalizar')[0]);
+        fireEvent.change(screen.getByLabelText('Dirección'), { target: { value: 'Av. Siempre Viva 123' } });
+        fireEvent.change(screen.getByLabelText('Comuna'), { target: { value: 'Ñuñoa' } });
+        fireEvent.change(screen.getByLabelText('Fecha de Entrega Preferida'), { target: { value: fechaManana() } });
+        fireEvent.click(screen.getByText('Pagar $43.500'));
 
-        fireEvent.change(screen.getByLabelText(/mensaje especial/i), { target: { value: 'Feliz Aniversario' } });
-        fireEvent.change(screen.getByLabelText('Cantidad:'), { target: { value: '2' } });
-        fireEvent.click(screen.getByText('Guardar y Agregar'));
+        expect(screen.getByText('¡Gracias por tu compra!')).toBeInTheDocument();
+        expect(screen.getByText('PED-1001')).toBeInTheDocument();
 
-        const carrito = JSON.parse(localStorage.getItem('milsabores_carrito'));
-        expect(carrito.length).toBe(1);
-        expect(carrito[0].nombre).toBe('Torta Cuadrada de Chocolate');
-        expect(carrito[0].cantidad).toBe(2);
-        expect(carrito[0].mensaje).toBe('Feliz Aniversario');
-        expect(screen.getByText(/agregado al carrito/)).toBeInTheDocument();
+        const pedidos = JSON.parse(localStorage.getItem('milsabores_pedidos'));
+        expect(pedidos[0].total).toBe(43500);
+        expect(pedidos[0].comuna).toBe('Ñuñoa');
+        expect(localStorage.getItem('milsabores_carrito')).toBeNull();
     });
 });
