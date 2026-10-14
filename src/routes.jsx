@@ -6,6 +6,7 @@ import Catalogo from "./pages/catalogo/catalogo";
 import Login from "./pages/usuario/login";
 import Perfil from "./pages/usuario/perfil";
 import Registro from "./pages/usuario/registro";
+import Envios from "./pages/envios/envios";
 
 export const routes = createBrowserRouter([
   {
@@ -36,6 +37,11 @@ export const routes = createBrowserRouter([
     path: "/registro",
     element: <Registro />,
   },
+  {
+    path: "/envios",
+    element: <Envios />
+  }
+
 ]);
 
 export default routes;

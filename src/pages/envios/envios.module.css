@@ -1,0 +1,28 @@
+.pagina {
+    background-color: #fbf7f4;
+}
+
+.titulo {
+    color: #6a3e5c;
+}
+
+.tarjeta {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+}
+
+.btnPrimario {
+    background-color: #d97d97;
+    border-color: #d97d97;
+    color: #ffffff;
+}
+
+.btnPrimario:hover {
+    background-color: #c86c86;
+    border-color: #c86c86;
+    color: #ffffff;
+}
+
+.estadoSeguimiento {
+    font-weight: bold;
+}
