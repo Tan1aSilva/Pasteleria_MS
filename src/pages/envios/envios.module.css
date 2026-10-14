@@ -1,9 +1,9 @@
 .pagina {
-    background-color: #fbf7f4;
+    background-color: #FAF4F0;
 }
 
 .titulo {
-    color: #6a3e5c;
+    color: #6B4E71;
 }
 
 .tarjeta {
@@ -12,14 +12,14 @@
 }
 
 .btnPrimario {
-    background-color: #d97d97;
-    border-color: #d97d97;
+    background-color: #D8829D;
+    border-color: #D8829D;
     color: #ffffff;
 }
 
 .btnPrimario:hover {
-    background-color: #c86c86;
-    border-color: #c86c86;
+    background-color: #C4718B;
+    border-color: #C4718B;
     color: #ffffff;
 }
 
